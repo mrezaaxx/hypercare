@@ -1,31 +1,21 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "version": 2,
   "framework": null,
-  "installCommand": "npm install",
-  "buildCommand": "npm run build",
-  "outputDirectory": "public",
   "functions": {
     "api/index.php": {
-      "runtime": "vercel-php@0.7.4",
-      "maxDuration": 30
+      "runtime": "vercel-php@0.7.4"
     }
   },
   "routes": [
     {
       "src": "/build/(.*)",
-      "dest": "/public/build/$1"
-    },
-    {
-      "src": "/(favicon\\.ico|robots\\.txt)",
-      "dest": "/public/$1"
-    },
-    {
-      "src": "/(.*\\.(?:css|gif|ico|jpg|jpeg|js|json|map|png|svg|txt|webp|woff|woff2))",
-      "dest": "/public/$1"
+      "dest": "/build/$1"
     },
     {
       "src": "/(.*)",
       "dest": "/api/index.php"
     }
-  ]
+  ],
+  "installCommand": "curl -sS https://getcomposer.org/installer | php && php composer.phar install --no-dev --prefer-dist --optimize-autoloader && npm install",
+  "buildCommand": "npm run build"
 }
