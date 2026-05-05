@@ -1,15 +1,7 @@
 <?php
-declare(strict_types=1);
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
+echo '<?php echo "PHP OK - " . phpversion();' > api/index.php
 
-$publicPath = realpath(__DIR__.'/../public');
-if ($publicPath === false) {
-    http_response_code(500);
-    echo 'Public path not found.';
-    exit;
-}
+declare(strict_types=1);
 
 $storagePath = sys_get_temp_dir().'/hypercare-storage';
 $bootstrapCache = sys_get_temp_dir().'/hypercare-bootstrap-cache';
