@@ -1,11 +1,19 @@
 {
   "version": 2,
   "framework": null,
-  "functions": {
-    "api/index.php": {
-      "runtime": "vercel-php@0.7.4"
+  "builds": [
+    {
+      "src": "api/index.php",
+      "use": "vercel-php@0.7.4"
+    },
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "public/build"
+      }
     }
-  },
+  ],
   "routes": [
     {
       "src": "/build/(.*)",
@@ -15,7 +23,5 @@
       "src": "/(.*)",
       "dest": "/api/index.php"
     }
-  ],
-  "installCommand": "curl -sS https://getcomposer.org/installer | php && php composer.phar install --no-dev --prefer-dist --optimize-autoloader && npm install",
-  "buildCommand": "npm run build"
+  ]
 }
