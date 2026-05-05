@@ -46,6 +46,8 @@ register_shutdown_function(function () {
     }
 });
 
+$_SERVER['HTTP_ACCEPT'] = 'application/json';
+
 try {
     require $publicPath.'/index.php';
 } catch (\Throwable $e) {
