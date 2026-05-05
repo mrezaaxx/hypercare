@@ -52,4 +52,7 @@ try {
     require $publicPath.'/index.php';
 } catch (\Throwable $e) {
     echo "EXCEPTION CAUGHT: " . $e->getMessage() . "\n" . $e->getTraceAsString();
+    if ($e->getPrevious()) {
+        echo "\n\nPREVIOUS EXCEPTION: " . $e->getPrevious()->getMessage() . "\n" . $e->getPrevious()->getTraceAsString();
+    }
 }
