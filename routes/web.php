@@ -21,7 +21,8 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/test', function () {
     return response('Laravel OK - routing works', 200);
-})->withoutMiddleware();
+});
+
 
 // Protected routes
 Route::middleware('auth')->group(function () {
