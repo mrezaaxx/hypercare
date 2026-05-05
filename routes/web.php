@@ -19,10 +19,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('/debug-log', function () {
-    $log = file_get_contents('/tmp/hypercare-error.log');
-    return response($log ?: 'no errors logged', 200)->header('Content-Type', 'text/plain');
-});
+Route::get('/test', function () {
+    return response('Laravel OK - routing works', 200);
+})->withoutMiddleware();
 
 // Protected routes
 Route::middleware('auth')->group(function () {
