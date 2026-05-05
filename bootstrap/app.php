@@ -23,8 +23,6 @@ if (isset($_ENV['APP_STORAGE_PATH'])) {
     $app->useStoragePath($_ENV['APP_STORAGE_PATH']);
 }
 
-if (isset($_ENV['APP_BOOTSTRAP_CACHE'])) {
-    $app->useBootstrapPath($_ENV['APP_BOOTSTRAP_CACHE']);
-}
+
 
 return $app;
