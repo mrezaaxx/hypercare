@@ -16,7 +16,15 @@ $app = Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        $exceptions->render(function (\Throwable $e) {
+            echo "<h1>Application Error</h1>";
+            echo "<pre>";
+            echo "Message: " . $e->getMessage() . "\n";
+            echo "File: " . $e->getFile() . ":" . $e->getLine() . "\n";
+            echo "Stack trace:\n" . $e->getTraceAsString();
+            echo "</pre>";
+            die();
+        });
     })->create();
 
 if (isset($_ENV['APP_STORAGE_PATH'])) {
