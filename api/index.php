@@ -52,4 +52,11 @@ $_SERVER['SCRIPT_FILENAME'] = $publicPath.'/index.php';
 $_SERVER['SCRIPT_NAME'] = '/index.php';
 $_SERVER['DOCUMENT_ROOT'] = $publicPath;
 
+// DEBUG - hapus setelah selesai
+register_shutdown_function(function () {
+    $error = error_get_last();
+    if ($error !== null) {
+        file_put_contents('/tmp/hypercare-error.log', date('Y-m-d H:i:s') . ' ' . print_r($error, true) . "\n", FILE_APPEND);
+    }
+});
 require $publicPath.'/index.php';
