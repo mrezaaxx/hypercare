@@ -21,6 +21,12 @@ $app = Application::configure(basePath: dirname(__DIR__))
 
 if (isset($_ENV['APP_STORAGE_PATH'])) {
     $app->useStoragePath($_ENV['APP_STORAGE_PATH']);
+    
+    // Fix missing .env on Vercel causing fatal errors
+    $app->useEnvironmentPath('/tmp');
+    if (!file_exists('/tmp/.env')) {
+        touch('/tmp/.env');
+    }
 }
 
 
