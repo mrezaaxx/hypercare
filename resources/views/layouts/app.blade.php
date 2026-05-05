@@ -19,7 +19,7 @@
             </div>
         </div>
 
-        <nav class="flex-1 px-4 space-y-1">
+        <nav class="flex-1 px-4 space-y-1 overflow-y-auto [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-border [&::-webkit-scrollbar-thumb]:rounded-full">
             <p class="px-3 mb-2 text-[0.65rem] font-bold text-text-faint uppercase tracking-[0.2em]">General</p>
             <a href="{{ route('home') }}" class="group flex items-center gap-3 px-3 py-2.5 rounded-xl text-[0.9rem] font-semibold transition-all {{ request()->routeIs('home') || request()->routeIs('simrs.dashboard') ? 'bg-accent text-white shadow-lg shadow-accent/20' : 'text-text-muted hover:bg-surface-soft hover:text-text' }}">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="{{ request()->routeIs('home') || request()->routeIs('simrs.dashboard') ? 'text-white' : 'text-text-faint group-hover:text-text' }}"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -30,7 +30,9 @@
                 <span>Patients</span>
             </a>
             
+            @if(in_array(auth()->user()->role, ['admin', 'doctor', 'nurse']))
             <p class="px-3 mt-6 mb-2 text-[0.65rem] font-bold text-text-faint uppercase tracking-[0.2em]">Management</p>
+            @if(in_array(auth()->user()->role, ['admin', 'doctor']))
             <a href="{{ route('lab-orders.index') }}" class="group flex items-center gap-3 px-3 py-2.5 rounded-xl text-[0.9rem] font-semibold transition-all {{ request()->routeIs('lab-orders.*') ? 'bg-accent text-white shadow-lg shadow-accent/20' : 'text-text-muted hover:bg-surface-soft hover:text-text' }}">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="{{ request()->routeIs('lab-orders.*') ? 'text-white' : 'text-text-faint group-hover:text-text' }}"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
                 <span>Laboratory</span>
@@ -39,14 +41,54 @@
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="{{ request()->routeIs('radiology-orders.*') ? 'text-white' : 'text-text-faint group-hover:text-text' }}"><rect x="2" y="2" width="20" height="20" rx="2"/><circle cx="12" cy="12" r="3"/></svg>
                 <span>Radiology</span>
             </a>
+            @endif
+            <a href="{{ route('igd.index') }}" class="group flex items-center gap-3 px-3 py-2.5 rounded-xl text-[0.9rem] font-semibold transition-all {{ request()->routeIs('igd.*') ? 'bg-accent text-white shadow-lg shadow-accent/20' : 'text-text-muted hover:bg-surface-soft hover:text-text' }}">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="{{ request()->routeIs('igd.*') ? 'text-white' : 'text-text-faint group-hover:text-text' }}"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                <span>IGD</span>
+            </a>
+            <a href="{{ route('inpatient.index') }}" class="group flex items-center gap-3 px-3 py-2.5 rounded-xl text-[0.9rem] font-semibold transition-all {{ request()->routeIs('inpatient.*') ? 'bg-accent text-white shadow-lg shadow-accent/20' : 'text-text-muted hover:bg-surface-soft hover:text-text' }}">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="{{ request()->routeIs('inpatient.*') ? 'text-white' : 'text-text-faint group-hover:text-text' }}"><path d="M3 3v18h18"/><path d="M15 15V9h-4v6h-4v6h12v-6z"/></svg>
+                <span>Rawat Inap</span>
+            </a>
+            <a href="{{ route('polyclinic-appointments.index') }}" class="group flex items-center gap-3 px-3 py-2.5 rounded-xl text-[0.9rem] font-semibold transition-all {{ request()->routeIs('polyclinic-appointments.*') ? 'bg-accent text-white shadow-lg shadow-accent/20' : 'text-text-muted hover:bg-surface-soft hover:text-text' }}">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="{{ request()->routeIs('polyclinic-appointments.*') ? 'text-white' : 'text-text-faint group-hover:text-text' }}"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <span>Poliklinik</span>
+            </a>
+            @endif
+
+            @if(auth()->user()->role === 'admin')
+            <p class="px-3 mt-6 mb-2 text-[0.65rem] font-bold text-text-faint uppercase tracking-[0.2em]">Master Data</p>
+            <a href="{{ route('departments.index') }}" class="group flex items-center gap-3 px-3 py-2.5 rounded-xl text-[0.9rem] font-semibold transition-all {{ request()->routeIs('departments.*') ? 'bg-accent text-white shadow-lg shadow-accent/20' : 'text-text-muted hover:bg-surface-soft hover:text-text' }}">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="{{ request()->routeIs('departments.*') ? 'text-white' : 'text-text-faint group-hover:text-text' }}"><path d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v4"/><polyline points="14 2 14 8 20 8"/><path d="M2 15h10"/><path d="m9 18 3-3-3-3"/></svg>
+                <span>Departments</span>
+            </a>
+            <a href="{{ route('doctors.index') }}" class="group flex items-center gap-3 px-3 py-2.5 rounded-xl text-[0.9rem] font-semibold transition-all {{ request()->routeIs('doctors.*') ? 'bg-accent text-white shadow-lg shadow-accent/20' : 'text-text-muted hover:bg-surface-soft hover:text-text' }}">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="{{ request()->routeIs('doctors.*') ? 'text-white' : 'text-text-faint group-hover:text-text' }}"><path d="m10.5 20.5 1-1a2 2 0 0 0-2.83-2.83l-1 1"/><path d="m7.5 17.5 1-1a2 2 0 0 0-2.83-2.83l-1 1"/><path d="m4.5 14.5 1-1a2 2 0 0 0-2.83-2.83l-1 1"/><path d="M12 21h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-8"/><path d="M16 10h.01"/></svg>
+                <span>Doctors</span>
+            </a>
+            <a href="{{ route('doctor-schedules.index') }}" class="group flex items-center gap-3 px-3 py-2.5 rounded-xl text-[0.9rem] font-semibold transition-all {{ request()->routeIs('doctor-schedules.*') ? 'bg-accent text-white shadow-lg shadow-accent/20' : 'text-text-muted hover:bg-surface-soft hover:text-text' }}">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="{{ request()->routeIs('doctor-schedules.*') ? 'text-white' : 'text-text-faint group-hover:text-text' }}"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span>Schedules</span>
+            </a>
+            <a href="{{ route('rooms.index') }}" class="group flex items-center gap-3 px-3 py-2.5 rounded-xl text-[0.9rem] font-semibold transition-all {{ request()->routeIs('rooms.*') || request()->routeIs('beds.*') ? 'bg-accent text-white shadow-lg shadow-accent/20' : 'text-text-muted hover:bg-surface-soft hover:text-text' }}">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="{{ request()->routeIs('rooms.*') || request()->routeIs('beds.*') ? 'text-white' : 'text-text-faint group-hover:text-text' }}"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg>
+                <span>Rooms & Beds</span>
+            </a>
+            <a href="{{ route('users.index') }}" class="group flex items-center gap-3 px-3 py-2.5 rounded-xl text-[0.9rem] font-semibold transition-all {{ request()->routeIs('users.*') ? 'bg-accent text-white shadow-lg shadow-accent/20' : 'text-text-muted hover:bg-surface-soft hover:text-text' }}">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="{{ request()->routeIs('users.*') ? 'text-white' : 'text-text-faint group-hover:text-text' }}"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <span>Users</span>
+            </a>
+            @endif
         </nav>
 
         <div class="p-4 mt-auto">
+            @if(auth()->user()->role === 'admin')
             <div class="p-5 rounded-2xl bg-bg/50 border border-border/50 backdrop-blur-sm">
                 <p class="text-xs font-bold text-text mb-1">Hypercare Pro</p>
                 <p class="text-[0.7rem] text-text-faint leading-relaxed mb-3">Upgrade for advanced clinical analytics.</p>
                 <a href="#" class="inline-block w-full py-2 bg-text text-white text-center text-xs font-bold rounded-lg shadow-lg shadow-text/10 hover:bg-text/90 transition-all">Upgrade Now</a>
             </div>
+            @endif
         </div>
     </aside>
 
@@ -77,7 +119,7 @@
                 <div class="flex items-center gap-3 pl-4 border-l border-border">
                     <div class="text-right hidden sm:block">
                         <p class="text-xs font-bold text-text leading-none mb-1">{{ Auth::user()->name }}</p>
-                        <p class="text-[0.6rem] text-accent uppercase font-bold tracking-widest">Admin</p>
+                        <p class="text-[0.6rem] text-accent uppercase font-bold tracking-widest">{{ Auth::user()->role }}</p>
                     </div>
                     <div class="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent font-bold shadow-sm shadow-accent/5">
                         {{ substr(Auth::user()->name, 0, 1) }}
@@ -97,6 +139,11 @@
                 @if (session('success'))
                     <div class="mb-5 p-3.5 border border-success/20 rounded-xl bg-success/12 text-[#bbf7d0] animate-fade-in" id="flash-success">
                         {{ session('success') }}
+                    </div>
+                @endif
+                @if (session('error'))
+                    <div class="mb-5 p-3.5 border border-danger/20 rounded-xl bg-danger/12 text-danger animate-fade-in" id="flash-error">
+                        {{ session('error') }}
                     </div>
                 @endif
 

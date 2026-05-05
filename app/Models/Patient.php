@@ -36,4 +36,14 @@ class Patient extends Model
     {
         return $this->hasMany(RadiologyOrder::class);
     }
+
+    public function igdVisits(): HasMany
+    {
+        return $this->hasMany(IgdVisit::class);
+    }
+
+    public function inpatientRegistrations(): HasMany
+    {
+        return $this->hasMany(InpatientRegistration::class);
+    }
 }
