@@ -1,5 +1,5 @@
 <?php
-echo '<?php echo "PHP OK - " . phpversion();' > api/index.php
+echo '<?php echo "PHP OK - " . phpversion();' > api/index.php;
 
 declare(strict_types=1);
 
