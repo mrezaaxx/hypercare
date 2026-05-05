@@ -34,6 +34,18 @@ foreach ([
 $_ENV['APP_STORAGE_PATH'] = $storagePath;
 $_ENV['APP_BOOTSTRAP_CACHE'] = $bootstrapCache;
 
+$_ENV['APP_PACKAGES_CACHE'] = $bootstrapCache . '/packages.php';
+$_ENV['APP_SERVICES_CACHE'] = $bootstrapCache . '/services.php';
+$_ENV['APP_CONFIG_CACHE'] = $bootstrapCache . '/config.php';
+$_ENV['APP_ROUTES_CACHE'] = $bootstrapCache . '/routes.php';
+$_ENV['APP_EVENTS_CACHE'] = $bootstrapCache . '/events.php';
+
+putenv('APP_PACKAGES_CACHE=' . $_ENV['APP_PACKAGES_CACHE']);
+putenv('APP_SERVICES_CACHE=' . $_ENV['APP_SERVICES_CACHE']);
+putenv('APP_CONFIG_CACHE=' . $_ENV['APP_CONFIG_CACHE']);
+putenv('APP_ROUTES_CACHE=' . $_ENV['APP_ROUTES_CACHE']);
+putenv('APP_EVENTS_CACHE=' . $_ENV['APP_EVENTS_CACHE']);
+
 $_SERVER['SCRIPT_FILENAME'] = $publicPath.'/index.php';
 $_SERVER['SCRIPT_NAME'] = '/index.php';
 $_SERVER['DOCUMENT_ROOT'] = $publicPath;

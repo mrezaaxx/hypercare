@@ -16,10 +16,7 @@ $app = Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        $exceptions->render(function (\Throwable $e) {
-            echo "MY CUSTOM RENDER:\n" . $e->getMessage() . "\n" . $e->getTraceAsString();
-            exit;
-        });
+        //
     })->create();
 
 if (isset($_ENV['APP_STORAGE_PATH'])) {
