@@ -52,4 +52,16 @@ $_SERVER['SCRIPT_FILENAME'] = $publicPath.'/index.php';
 $_SERVER['SCRIPT_NAME'] = '/index.php';
 $_SERVER['DOCUMENT_ROOT'] = $publicPath;
 
-require $publicPath.'/index.php';
+register_shutdown_function(function () {
+    $error = error_get_last();
+    if ($error !== null) {
+        echo "FATAL ERROR OCCURRED: ";
+        var_export($error);
+    }
+});
+
+try {
+    require $publicPath.'/index.php';
+} catch (\Throwable $e) {
+    echo "EXCEPTION CAUGHT: " . $e->getMessage() . "\n" . $e->getTraceAsString();
+}
